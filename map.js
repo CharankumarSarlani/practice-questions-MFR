@@ -138,28 +138,47 @@ const reversedWordsOf = function (strings) {
 
 // extract unique characters from ["apple", "banana", "grape"] => ["apl", "ban", "gra"]
 // Maintain the order of their first appearance in each string
+//mention already seen characters
 const uniqueCharactersOf = function (strings) { };
 
 // generate ranges from [3, 5, 2] => [[0, 1, 2], [0, 1, 2, 3, 4], [0, 1]]
-const rangesOf = function (numbers) { };
+const range = function (number) {
+  return Array.from({ length: number }, (_, index) => index);
+};
+
+const rangesOf = function (numbers) {
+  return numbers.map(range);
+};
 
 // capitalize first letters of ["hello world", "goodbye moon"] => ["Hello World", "Goodbye Moon"]
-const capitalizedFirstLettersOf = function (strings) { };
+const capitalizedFirstLettersOf = function (strings) {
+  return strings.map((string) => string.at(0).toUpperCase() + string.slice(1));
+};
 
 // find word lengths in ["apple pie", "banana split"] => [[5, 3], [6, 5]]
-const wordLengthsOf = function (strings) { };
+const wordLengthsOf = function (strings) {
+  return strings.map((string) => string.split(" ").map((word) => word.length));
+};
 
 // flatten nested arrays of [[1, [2, 3]], [4, [5, 6]]] => [[1, 2, 3], [4, 5, 6]]
-const flattenedArraysOf = function (arrays) { };
+const flattenedArraysOf = function (arrays) {
+  return arrays.map((array) => array.flat(Infinity));
+};
 
 // sort letters in ["cat", "bat", "rat"] alphabetically => ["act", "abt", "art"]
-const sortedLettersOf = function (strings) { };
+const sortedLettersOf = function (strings) {
+  return strings.map((string) => [...string].sort().join(""));
+};
 
 // wrap strings in brackets ["apple", "banana"] => ["[apple]", "[banana]"]
-const wrappedStringsOf = function (strings) { };
+const wrappedStringsOf = function (strings) {
+  return strings.map((string) => "[" + string + "]");
+};
 
 // extract names from [{ name: "Alice" }, { name: "Bob" }] => ["Alice", "Bob"]
-const extractNames = function (objects) { };
+const extractNames = function (objects) {
+  return objects.map((object) => object.name);
+};
 
 // extract ages from [{ age: 25 }, { age: 30 }] => [25, 30]
 const extractAges = function (objects) { };
@@ -168,7 +187,9 @@ const extractAges = function (objects) { };
 const firstLettersOfNames = function (objects) { };
 
 // calculate areas from [{ width: 2, height: 3 }, { width: 4, height: 5 }] => [6, 20]
-const calculateAreas = function (rectangles) { };
+const calculateAreas = function (rectangles) {
+  return rectangles.map((dimensions) => dimensions.width * dimensions.height);
+};
 
 // extract boolean flags from [{ active: true }, { active: false }] => [true, false]
 const extractFlags = function (objects) { };
@@ -185,7 +206,11 @@ const totalPrices = function (objects) { };
 const isAdult = function (objects) { };
 
 // create abbreviations from [{ city: "New York", country: "USA" }, { city: "Los Angeles", country: "USA" }] => ["NY, USA", "LA, USA"]
-const abbreviations = function (objects) { };
+const abbreviations = function (objects) {
+  return objects.map(
+    (object) => object.city.split(' ').map(
+      word => word[0].toUpperCase()).join(''));
+};
 
 // extract scores for math tests from [{ name: "Alice", scores: { math: 90, english: 85 } }, { name: "Bob", scores: { math: 80, english: 75 } }] => [90, 80]
 const mathScores = function (objects) { };
@@ -316,7 +341,17 @@ const allTags = function (categories) { };
 
 // given a list of people, where each person has a list of friends, use `flatMap` to return a list of all friends, excluding duplicates, in [{ name: "Alice", friends: ["Bob", "Charlie"] }, { name: "Bob", friends: ["Alice", "David"] }] => ["Bob", "Charlie", "David"]
 // Steps: Use `flatMap` to flatten the friends arrays, then remove duplicates.
-const allFriends = function (people) { };
+const allFriends = function (people) {
+  const friends = people.flatMap((person) => person.friends);
+  const uniqueFriends = [];
+  
+  return friends.map(function (friend) {
+    if (!uniqueFriends.includes(friend)) {
+      uniqueFriends.push(friend);
+      return friend;
+    }
+  });
+};
 
 // given an array of strings, return a new array where each string is prefixed with its index (e.g., "0: Alice", "1: Bob") in ["Alice", "Bob", "Charlie"] => ["0: Alice", "1: Bob", "2: Charlie"]
 // Steps: Use the index parameter in the `map` function to prefix the strings.
