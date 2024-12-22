@@ -1,52 +1,119 @@
 // squares of [1, 2, 3] => [1, 4, 9]
-const squaresOf = function (numbers) { };
+const squaresOf = function (numbers) {
+  return numbers.map(function (number) {
+    return Math.pow(number, 2);
+  });
+};
 
 // lengths of ["apple", "banana", "kiwi"] => [5, 6, 4]
-const lengthsOf = function (strings) { };
+const lengthsOf = function (strings) {
+  return strings.map(function (string) {
+    return string.length;
+  });
+};
 
 // uppercase of ["hello", "world"] => ["HELLO", "WORLD"]
-const uppercaseOf = function (strings) { };
+const uppercaseOf = function (strings) {
+  return strings.map(function (string) {
+    return string.toUpperCase();
+  });
+};
 
 // first characters of ["apple", "banana", "kiwi"] => ["a", "b", "k"]
-const firstCharactersOf = function (strings) { };
+const firstCharactersOf = function (strings) {
+  return strings.map((string) => string.at(0));
+};
 
 // truth values of [0, 1, 2, 3] => [false, true, true, true]
 // Assume non-zero numbers are true, and zero is false
-const truthValuesOf = function (numbers) { };
+const truthValuesOf = function (numbers) {
+  return numbers.map(
+    (number) => Boolean(number));
+};
 
 // reverse strings of ["hello", "world"] => ["olleh", "dlrow"]
-const reversedStringsOf = function (strings) { };
+const reversedStringsOf = function (strings) {
+  return strings.map(
+    (string) => [...string].reverse().join(""));
+};
 
 // double letters of ["cat", "dog", "bat"] => ["ccaat", "ddoog", "bbaatt"]
-const doubleLettersOf = function (strings) { };
+const doubleLettersOf = function (strings) {
+  return strings.map(
+    (string) => ([...string].map((char) => char.repeat(2))).join(""));
+};
 
 // boolean negation of [true, false, true] => [false, true, false]
-const negatedBooleansOf = function (booleans) { };
+const negatedBooleansOf = function (booleans) {
+  return booleans.map((boolean) => !boolean);
+};
 
 // character codes of ["a", "b", "c"] => [97, 98, 99]
 // Use the `charCodeAt` method on each string
-const charCodesOf = function (strings) { };
+const charCodesOf = function (strings) {
+  return strings.map((char) => char.charCodeAt(0));
+};
 
 // extract domain names from ["user1@gmail.com", "admin@yahoo.com"] => ["gmail.com", "yahoo.com"]
-const domainNamesOf = function (emails) { };
+const domainNamesOf = function (emails) {
+  return emails.map(
+    (email) => email.slice(email.indexOf("@") + 1));
+};
 
 // split words in ["hello world", "goodbye moon"] => [["hello", "world"], ["goodbye", "moon"]]
-const splitWordsOf = function (strings) { };
+const splitWordsOf = function (strings) {
+  return strings.map((string) => string.split(" "));
+};
 
 // join arrays of [["a", "b"], ["c", "d"]] => ["ab", "cd"]
-const joinedArraysOf = function (arrayOfArrays) { };
+const joinedArraysOf = function (arrayOfArrays) {
+  return arrayOfArrays.map((array) => array.join(""));
+};
 
 // repeat strings in ["hi", "bye"] => ["hihi", "byebye"]
-const repeatedStringsOf = function (strings) { };
+const repeatedStringsOf = function (strings) {
+  return strings.map((string) => string.repeat(2));
+};
 
 // count vowels in ["apple", "banana", "grape"] => [2, 3, 2]
-const countVowelsOf = function (strings) { };
+const isVowel = function (char) {
+  const vowels = ["A", "E", "I", "O", "U", "a", "e", "i", "o", "u"];
+
+  return vowels.includes(char);
+};
+
+const getVowelCount = function (string) {
+  return [...string].reduce(
+    (count, char) => isVowel(char) ? count + 1 : count, 0);
+};
+
+const countVowelsOf = function (strings) {
+  return strings.map((string) => getVowelCount(string));
+};
 
 // reverse arrays of [[1, 2, 3], [4, 5, 6]] => [[3, 2, 1], [6, 5, 4]]
-const reversedArraysOf = function (arrays) { };
+const reversedArraysOf = function (arrays) {
+  return arrays.map((array) => array.reverse());
+};
 
 // remove vowels from ["apple", "banana", "grape"] => ["ppl", "bnn", "grp"]
-const withoutVowelsOf = function (strings) { };
+const stringMap = function (string, mapper) {
+  return string.split('').map(mapper).join('');
+};
+
+const stringFilter = function (string, predicate) {
+  return string.split('').filter(predicate).join('');
+};
+
+const invert = function (f) {
+  return function (...args) {
+    return !f(...args);
+  };
+};
+
+const withoutVowelsOf = function (strings) {
+  return strings.map((string) => stringFilter(string, invert(isVowel)));
+};
 
 // cumulative sums of [[1, 2, 3], [4, 5, 6]] => [[1, 3, 6], [4, 9, 15]]
 // Example: cumulative sum of [1, 2, 3] is [1, 1+2, 1+2+3]
