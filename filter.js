@@ -171,10 +171,23 @@ const filterLongProductNames = function (products, minLength) { };
 const filterAgeGroups = function (users, ageGroup) { };
 
 // Convert grades to letter grades, then filter for students who passed [{name: "Alice", grade: 90}, {name: "Bob", grade: 55}] => [{name: "Alice", grade: 90}]
+
+const gradesToLetterGrades = function (threshold) {
+  const grades = [{ grade: "A", marks: 90 },
+  { grade: "B", marks: 70 },
+  { grade: "C", marks: 50 }];
+
+  const convertedGrades = grades.find(function (grade) {
+    return threshold >= grade.marks;
+  });
+
+  return convertedGrades.grade;
+};
+
 const filterPassingGrades = function (students, passingGrade) {
-  const grades = ["A", "B", "C"];
-
-
+  return students.filter(function (student) {
+    return gradesToLetterGrades(student.grade) === passingGrade;
+  });
 };
 
 // Calculate VAT-inclusive prices, then filter for those over a certain threshold [{name: "item1", price: 100}, {name: "item2", price: 50}] => [{name: "item1", price: 120}]
