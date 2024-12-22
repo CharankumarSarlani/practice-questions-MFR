@@ -125,7 +125,15 @@ const filterStudentsWithAllSubjectsPassed = function (students) {
 const filterBirthdaysThisMonth = function (people) { };
 
 // orders that exceed the average order value [{orderId: 1, amount: 20}, {orderId: 2, amount: 50}, {orderId: 3, amount: 10}] => [{orderId: 2, amount: 50}]
-const filterHighValueOrders = function (orders) { };
+const filterHighValueOrders = function (orders) {
+  const prices = orders.map(getProductPriceByAttr("amount"));
+  const totalPrice = prices.reduce(sum, 0);
+  const averagePrice = totalPrice / orders.length;
+
+  return orders.filter(function (order) {
+    return order.amount > averagePrice;
+  });
+};
 
 // books with reviews higher than the average rating [{title: "Book 1", rating: 4}, {title: "Book 2", rating: 5}, {title: "Book 3", rating: 3}] => [{title: "Book 2", rating: 5}]
 const filterTopRatedBooks = function (books) { };
