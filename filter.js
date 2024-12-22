@@ -5,7 +5,7 @@ const isEven = function (number) { return number & 1 === 0; };
 const filterEvenNumbers = function (numbers) {
   return numbers.filter(isEven);
 };
-
+ 
 function createGreaterThanPredicate(threshold) {
   return function (value) {
     return value > threshold;
