@@ -5,44 +5,19 @@ const filterEvenNumbers = function (numbers) {
   return numbers.filter(isEven);
 };
 
-function createIsGreaterThan(threshold) {
-  return function (value) {
-    return value > threshold;
-  };
-}
-
-const createAttributeComparator = function (key, threshold, comparisonFunction) {
-  const comparison = comparisonFunction(threshold);
-
-  return function (object) {
-    return comparison(object[key]);
-  };
-};
-
 // words with more than 5 letters ["apple", "banana", "kiwi", "grape"] => ["banana"]
 const filterLongWords = function (words) {
-  const predicate = createIsGreaterThan(5);
-  return words.filter(function (string) { return predicate(string.length); });
+  return words.filter(function (string) { return string.length > 5; });
 };
 
 // people older than 30 [{name: "Alice", age: 25}, {name: "Bob", age: 35}] => [{name: "Bob", age: 35}]
 const filterAdults = function (people) {
-  const ageComparisonPredicate = createAttributeComparator("age", 30, createIsGreaterThan);
-
-  return people.filter(ageComparisonPredicate);
-};
-
-const createTrueValuePredicate = function (key) {
-  return function (object) {
-    return object[key];
-  };
+  return people.filter(function (person) { return person > 30; });
 };
 
 // active users [{username: "alice", active: true}, {username: "bob", active: false}] => [{username: "alice", active: true}]
 const filterActiveUsers = function (users) {
-  const isActiveUser = createTrueValuePredicate("active");
-
-  return users.filter(isActiveUser);
+  return users.filter(function (user) { return user.active; });
 };
 
 // numbers greater than 10 [5, 12, 7, 18, 3] => [12, 18]
@@ -53,9 +28,7 @@ const filterLongBooks = function (books) { };
 
 // users with incomplete profiles [{username: "alice", profileComplete: true}, {username: "bob", profileComplete: false}] => [{username: "bob", profileComplete: false}]
 const filterIncompleteProfiles = function (users) {
-  const isIncompleteProfile = createTrueValuePredicate("profileComplete");
-
-  return users.filter(isIncompleteProfile);
+  return users.filter(function (user) { return user.profileComplete; });
 };
 
 // students with grades above 80 [{name: "John", grade: 75}, {name: "Jane", grade: 85}] => [{name: "Jane", grade: 85}]
@@ -198,7 +171,11 @@ const filterLongProductNames = function (products, minLength) { };
 const filterAgeGroups = function (users, ageGroup) { };
 
 // Convert grades to letter grades, then filter for students who passed [{name: "Alice", grade: 90}, {name: "Bob", grade: 55}] => [{name: "Alice", grade: 90}]
-const filterPassingGrades = function (students, passingGrade) { };
+const filterPassingGrades = function (students, passingGrade) {
+  const grades = ["A", "B", "C"];
+
+
+};
 
 // Calculate VAT-inclusive prices, then filter for those over a certain threshold [{name: "item1", price: 100}, {name: "item2", price: 50}] => [{name: "item1", price: 120}]
 const filterHighPriceWithVAT = function (products, vatRate, threshold) { };
@@ -216,7 +193,9 @@ const filterRecentBooks = function (books, yearThreshold) { };
 const filterActivePosters = function (users, postThreshold) { };
 
 // Convert students' grades to letter grades, then filter for students who received a specific grade [{name: "Alice", grade: 90}, {name: "Bob", grade: 85}] => [{name: "Alice", grade: 90}]
-const filterSpecificGrade = function (students, grade) { };
+const filterSpecificGrade = function (students, grade) {
+
+};
 
 // Filter products based on category and price threshold [{category: {type: "electronics"}, name: "Laptop", price: 800}, {category: {type: "furniture"}, name: "Chair", price: 150}] => [{category: {type: "electronics"}, name: "Laptop", price: 800}]
 const filterByCategoryAndPrice = function (products, category, maxPrice) { };
