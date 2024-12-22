@@ -87,10 +87,16 @@ const filterRecentOrders = function (orders) {
 };
 
 // products with a price lower than the average [{name: "item1", price: 10}, {name: "item2", price: 20}, {name: "item3", price: 5}] => [{name: "item1", price: 10}, {name: "item3", price: 5}]
-const getProductPrice = function (product) { return product.price; };
+const getProductPriceByAttr = function (attribute) {
+  return function (product) {
+    return product[attribute];
+  };
+};
+
 const sum = function (number1, number2) { return number1 + number2; };
 
 const filterBelowAveragePrice = function (products) {
+  const getProductPrice = getProductPriceByAttr("price");
   const totalPrice = products.map(getProductPrice).reduce(sum, 0);
   const averagePrice = totalPrice / products.length;
 
