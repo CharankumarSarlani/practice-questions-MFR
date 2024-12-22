@@ -5,36 +5,36 @@ const filterEvenNumbers = function (numbers) {
   return numbers.filter(isEven);
 };
 
-function createGreaterThanPredicate(threshold) {
+function createIsGreaterThan(threshold) {
   return function (value) {
     return value > threshold;
   };
 }
 
-const createAttributeComparator = function (attribute, threshold, comparisonFunction) {
+const createAttributeComparator = function (key, threshold, comparisonFunction) {
   const comparison = comparisonFunction(threshold);
 
   return function (object) {
-    return comparison(object[attribute]);
+    return comparison(object[key]);
   };
 };
 
 // words with more than 5 letters ["apple", "banana", "kiwi", "grape"] => ["banana"]
 const filterLongWords = function (words) {
-  const predicate = createGreaterThanPredicate(5);
+  const predicate = createIsGreaterThan(5);
   return words.filter(function (string) { return predicate(string.length); });
 };
 
 // people older than 30 [{name: "Alice", age: 25}, {name: "Bob", age: 35}] => [{name: "Bob", age: 35}]
 const filterAdults = function (people) {
-  const ageComparisonPredicate = createAttributeComparator("age", 30, createGreaterThanPredicate);
+  const ageComparisonPredicate = createAttributeComparator("age", 30, createIsGreaterThan);
 
   return people.filter(ageComparisonPredicate);
 };
 
-const createTrueValuePredicate = function (attribute) {
+const createTrueValuePredicate = function (key) {
   return function (object) {
-    return object[attribute];
+    return object[key];
   };
 };
 
@@ -64,8 +64,27 @@ const filterHighGrades = function (students) { };
 // products that are in stock [{product: "apple", inStock: true}, {product: "banana", inStock: false}] => [{product: "apple", inStock: true}]
 const filterInStockProducts = function (products) { };
 
+// For date comparisons
+const dateCompare = function (threshold, date) {
+  return (date).every(function (value, index) {
+    return +value >= +threshold[index];
+  });
+};
+
+const createDatePredicate = function (dateOffset, attribute) {
+  const threshold = dateOffset.split("-");
+
+  return function (object) {
+    return dateCompare(threshold, object[attribute].split("-"));
+  };
+};
+
 // orders placed in the last 30 days [{orderDate: "2024-11-01"}, {orderDate: "2024-12-01"}] => [{orderDate: "2024-12-01"}]
-const filterRecentOrders = function (orders) { };
+const filterRecentOrders = function (orders) {
+  const datePredicate = createDatePredicate("2024-12-01", "orderDate");
+
+  return orders.filter(datePredicate);
+};
 
 // products with a price lower than the average [{name: "item1", price: 10}, {name: "item2", price: 20}, {name: "item3", price: 5}] => [{name: "item1", price: 10}, {name: "item3", price: 5}]
 const filterBelowAveragePrice = function (products) { };
