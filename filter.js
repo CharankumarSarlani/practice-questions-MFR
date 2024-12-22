@@ -1,11 +1,10 @@
 // even numbers [1, 2, 3, 4, 5] => [2, 4]
-const numbers = [1, 2, 3, 4, 5];
 const isEven = function (number) { return number & 1 === 0; };
 
 const filterEvenNumbers = function (numbers) {
   return numbers.filter(isEven);
 };
- 
+
 function createGreaterThanPredicate(threshold) {
   return function (value) {
     return value > threshold;
@@ -26,8 +25,6 @@ const filterLongWords = function (words) {
   return words.filter(function (string) { return predicate(string.length); });
 };
 
-const words = ["apple", "banana", "kiwi", "grape"];
-
 // people older than 30 [{name: "Alice", age: 25}, {name: "Bob", age: 35}] => [{name: "Bob", age: 35}]
 const filterAdults = function (people) {
   const ageComparisonPredicate = createAttributeComparator("age", 30, createGreaterThanPredicate);
@@ -35,10 +32,18 @@ const filterAdults = function (people) {
   return people.filter(ageComparisonPredicate);
 };
 
-const people = [{ name: "Alice", age: 25 }, { name: "Bob", age: 35 }];
+const createTrueValuePredicate = function (attribute) {
+  return function (object) {
+    return object[attribute];
+  };
+};
 
 // active users [{username: "alice", active: true}, {username: "bob", active: false}] => [{username: "alice", active: true}]
-const filterActiveUsers = function (users) { };
+const filterActiveUsers = function (users) {
+  const isActiveUser = createTrueValuePredicate("active");
+
+  return users.filter(isActiveUser);
+};
 
 // numbers greater than 10 [5, 12, 7, 18, 3] => [12, 18]
 const filterNumbersGreaterThanTen = function (numbers) { };
@@ -47,7 +52,11 @@ const filterNumbersGreaterThanTen = function (numbers) { };
 const filterLongBooks = function (books) { };
 
 // users with incomplete profiles [{username: "alice", profileComplete: true}, {username: "bob", profileComplete: false}] => [{username: "bob", profileComplete: false}]
-const filterIncompleteProfiles = function (users) { };
+const filterIncompleteProfiles = function (users) {
+  const isIncompleteProfile = createTrueValuePredicate("profileComplete");
+
+  return users.filter(isIncompleteProfile);
+};
 
 // students with grades above 80 [{name: "John", grade: 75}, {name: "Jane", grade: 85}] => [{name: "Jane", grade: 85}]
 const filterHighGrades = function (students) { };
