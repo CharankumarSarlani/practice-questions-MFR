@@ -151,7 +151,11 @@ const filterPopularPosts = function (posts) { };
 const filterActiveUsersByPostCount = function (users) { };
 
 // filter people older than a certain age [{name: "Alice", age: 25}, {name: "Bob", age: 30}, {name: "Charlie", age: 22}] => [{name: "Bob", age: 30}]
-const filterByAge = function (people, age) { };
+const filterByAge = function (people, age) {
+  return people.filter(function (person) {
+    return person.age === age;
+  });
+};
 
 // filter products that are cheaper than a given price [{name: "item1", price: 20}, {name: "item2", price: 50}, {name: "item3", price: 10}] => [{name: "item1", price: 20}, {name: "item3", price: 10}]
 const filterByPrice = function (products, price) { };
@@ -172,7 +176,11 @@ const filterByQuantity = function (orders, quantity) { };
 const filterByYear = function (books, year) { };
 
 // filter students with a grade higher than a given threshold in a specific subject [{name: "Alice", grades: {math: 90, science: 80}}, {name: "Bob", grades: {math: 70, science: 85}}] => [{name: "Alice", grades: {math: 90, science: 80}}]
-const filterBySubjectGrade = function (students, subject, threshold) { };
+const filterBySubjectGrade = function (students, subject, threshold) {
+  return students.filter(function (student) {
+    return student.grades[subject] > threshold;
+  });
+};
 
 // filter photos with a minimum number of likes [{id: 1, likes: 100}, {id: 2, likes: 50}] => [{id: 1, likes: 100}]
 const filterByLikes = function (photos, likes) { };
@@ -328,7 +336,9 @@ const filterUsersByFollowingAndRecentPosts = function (users, minFollowing, days
 const filterPostsByUserFollowersAndComments = function (posts, minFollowers, minComments) { };
 
 // Filter users who have shared a post that has a specific hashtag and has been liked more than a set number [{user: {name: "Mia", posts: [{title: "Post 1", hashtags: ["#beach", "#sunset"], likes: 300}]}}] => [{user: {name: "Mia", posts: [{title: "Post 1", hashtags: ["#beach", "#sunset"], likes: 300}]}}]
-const filterUsersByHashtagAndLikes = function (users, hashtag, minLikes) { };
+const filterUsersByHashtagAndLikes = function (users, hashtag, minLikes) {
+
+};
 
 // Filter numbers from the first array that are present in the second array
 // Input: [1, 2, 3, 4, 5], [2, 4, 6]
