@@ -1,11 +1,41 @@
 // even numbers [1, 2, 3, 4, 5] => [2, 4]
-const filterEvenNumbers = function (numbers) { };
+const numbers = [1, 2, 3, 4, 5];
+const isEven = function (number) { return number & 1 === 0; };
+
+const filterEvenNumbers = function (numbers) {
+  return numbers.filter(isEven);
+};
+
+function createGreaterThanPredicate(threshold) {
+  return function (value) {
+    return value > threshold;
+  };
+}
+
+const createAttributeComparator = function (attribute, threshold, comparisonFunction) {
+  const comparison = comparisonFunction(threshold);
+
+  return function (object) {
+    return comparison(object[attribute]);
+  };
+};
 
 // words with more than 5 letters ["apple", "banana", "kiwi", "grape"] => ["banana"]
-const filterLongWords = function (words) { };
+const filterLongWords = function (words) {
+  const predicate = createGreaterThanPredicate(5);
+  return words.filter(function (string) { return predicate(string.length); });
+};
+
+const words = ["apple", "banana", "kiwi", "grape"];
 
 // people older than 30 [{name: "Alice", age: 25}, {name: "Bob", age: 35}] => [{name: "Bob", age: 35}]
-const filterAdults = function (people) { };
+const filterAdults = function (people) {
+  const ageComparisonPredicate = createAttributeComparator("age", 30, createGreaterThanPredicate);
+
+  return people.filter(ageComparisonPredicate);
+};
+
+const people = [{ name: "Alice", age: 25 }, { name: "Bob", age: 35 }];
 
 // active users [{username: "alice", active: true}, {username: "bob", active: false}] => [{username: "alice", active: true}]
 const filterActiveUsers = function (users) { };
